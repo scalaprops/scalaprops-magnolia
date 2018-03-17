@@ -12,7 +12,24 @@ case class B(value: Boolean) extends A
 case class C(value: Either[X, Boolean]) extends A
 case class D(value: Int) extends A
 
+sealed trait Tree[+T] {
+  def size: Int
+}
+case class Leaf[+L](value: L) extends Tree[L] {
+  def size = 1
+}
+case class Branch[+T](left: Tree[T], right: Tree[T]) extends Tree[T] {
+  def size = left.size + right.size
+}
+
 object ScalapropsMagnoliaTest extends Scalaprops {
+
+  val tree = Property.forAll { seed: Long =>
+    println("--" * 55)
+    Gen[Tree[Int]].samples(seed = seed).take(5) foreach println
+
+    true
+  }
 
   val test = Property.forAll { seed: Long =>
     val expected = List(
