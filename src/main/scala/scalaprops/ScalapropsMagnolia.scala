@@ -7,9 +7,14 @@ object ScalapropsMagnolia {
 
   def combine[T](ctx: CaseClass[Gen, T]): Gen[T] =
     Gen.gen[T] { (size, rand) =>
-      rand.next -> ctx.construct { p =>
-        p.typeclass.f(size, rand)._2
+      var r = rand
+      val result = ctx.construct { p =>
+        val (nextRand, x) = p.typeclass.f(size, r)
+        r = nextRand
+        x
       }
+
+      r -> result
     }
 
   def dispatch[T](ctx: SealedTrait[Gen, T]): Gen[T] = {
