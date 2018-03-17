@@ -19,7 +19,11 @@ object UpdateReadme {
       val matchReleaseOrSnapshot = line.contains("SNAPSHOT") == v.contains("SNAPSHOT")
       if(line.startsWith("libraryDependencies") && matchReleaseOrSnapshot){
         val i = modules.map("\"" + _ + "\"").indexWhere(line.contains)
-        s"""libraryDependencies += "$org" %% "${modules(i)}" % "$v""""
+        if(line.contains(" %%% ")){
+          s"""libraryDependencies += "$org" %%% "${modules(i)}" % "$v""""
+        }else{
+          s"""libraryDependencies += "$org" %% "${modules(i)}" % "$v""""
+        }
       } else line
     }.mkString("", "\n", "\n")
     IO.write(readmeFile, newReadme)

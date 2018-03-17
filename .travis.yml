@@ -3,7 +3,7 @@ sudo: false
 scala:
 - 2.12.4
 script:
-- sbt scalafmt::test sbt:scalafmt::test test:scalafmt::test "++ ${TRAVIS_SCALA_VERSION}!" test
+- sbt scalafmt::test sbt:scalafmt::test test:scalafmt::test "++ ${TRAVIS_SCALA_VERSION}!" jvm/test js/test
 jdk:
 - oraclejdk8
 cache:
