@@ -2,7 +2,7 @@ package scalaprops
 
 import magnolia.{CaseClass, Magnolia, SealedTrait}
 
-object ScalapropsMagnolia {
+object ScalapropsMagnoliaGen {
   type Typeclass[T] = scalaprops.Gen[T]
 
   def combine[T](ctx: CaseClass[Gen, T]): Gen[T] =
@@ -24,5 +24,6 @@ object ScalapropsMagnolia {
     Gen.choose(0, gs.size - 1).flatMap(gs)
   }
 
-  implicit def gen[T]: Gen[T] = macro Magnolia.gen[T]
+  implicit def derivingScalapropsGen[T]: Gen[T] =
+    macro Magnolia.gen[T]
 }
