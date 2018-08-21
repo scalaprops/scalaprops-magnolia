@@ -121,9 +121,6 @@ lazy val scalapropsMagnolia = crossProject(JVMPlatform, JSPlatform)
     }
   )
 
-val jvm = scalapropsMagnolia.jvm.withId("jvm")
-val js = scalapropsMagnolia.js.withId("js")
-
 lazy val notPublish = nocomma {
   publishArtifact := false
   publish := {}
