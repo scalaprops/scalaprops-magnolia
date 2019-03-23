@@ -1,4 +1,4 @@
-addSbtPlugin("com.lucidchart" % "sbt-scalafmt" % "1.15")
+addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.0.0")
 addSbtPlugin("com.github.scalaprops" % "sbt-scalaprops" % "0.3.1")
 addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "2.4")
 addSbtPlugin("com.github.gseitz" % "sbt-release" % "1.0.11")
