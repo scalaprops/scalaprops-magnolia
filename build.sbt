@@ -13,11 +13,12 @@ val tagOrHash = Def.setting {
   if (isSnapshot.value) gitHash() else tagName.value
 }
 val Scala212 = "2.12.8"
+val Scala213 = "2.13.0"
 val unusedWarnings = Seq("-Ywarn-unused")
 
 lazy val commonSettings = nocomma {
   scalaVersion := Scala212
-  crossScalaVersions := Seq(Scala212)
+  crossScalaVersions := Seq(Scala212, Scala213)
   organization := "com.github.scalaprops"
   homepage := Some(url("https://github.com/scalaprops/scalaprops-magnolia"))
   licenses := Seq("MIT License" -> url("https://opensource.org/licenses/mit-license"))
@@ -90,16 +91,25 @@ lazy val scalapropsMagnolia = crossProject(JVMPlatform, JSPlatform)
       "-Xlint:private-shadow",
       "-Xlint:stars-align",
       "-Xlint:type-parameter-shadow",
-      "-Xlint:unsound-match",
-      "-Yno-adapted-args",
       "-Ywarn-dead-code",
       "-Ywarn-numeric-widen",
       "-Ywarn-value-discard",
-      "-Xfuture"
     )
+    scalacOptions ++= {
+      CrossVersion.partialVersion(scalaVersion.value) match {
+        case Some((2, v)) if v <= 12 =>
+          Seq(
+            "-Yno-adapted-args",
+            "-Xlint:unsound-match",
+            "-Xfuture",
+          )
+        case _ =>
+          Nil
+      }
+    }
     scalapropsVersion := "0.6.0"
     libraryDependencies ++= Seq(
-      "com.propensive" %%% "magnolia" % "0.10.0",
+      "com.propensive" %%% "magnolia" % "0.11.0",
       "com.github.scalaprops" %%% "scalaprops-gen" % scalapropsVersion.value,
       "com.github.scalaprops" %%% "scalaprops" % scalapropsVersion.value % "test"
     )
