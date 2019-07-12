@@ -8,13 +8,13 @@
 for jvm
 
 ```scala
-libraryDependencies += "com.github.scalaprops" %% "scalaprops-magnolia" % "0.4.0"
+libraryDependencies += "com.github.scalaprops" %% "scalaprops-magnolia" % "0.5.0"
 ```
 
 for scala-js
 
 ```scala
-libraryDependencies += "com.github.scalaprops" %%% "scalaprops-magnolia" % "0.4.0"
+libraryDependencies += "com.github.scalaprops" %%% "scalaprops-magnolia" % "0.5.0"
 ```
 
 ### example
