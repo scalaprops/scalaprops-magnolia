@@ -1,6 +1,5 @@
 import sbtrelease._
 import ReleaseStateTransformations._
-import com.typesafe.sbt.pgp.PgpKeys
 import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
 
 def gitHash(): String = sys.process.Process("git rev-parse HEAD").lineStream_!.head
