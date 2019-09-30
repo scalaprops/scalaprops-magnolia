@@ -2,6 +2,8 @@ import sbtrelease._
 import ReleaseStateTransformations._
 import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
 
+ThisBuild / onChangedBuildSource := ReloadOnSourceChanges
+
 def gitHash(): String = sys.process.Process("git rev-parse HEAD").lineStream_!.head
 
 val tagName = Def.setting {
