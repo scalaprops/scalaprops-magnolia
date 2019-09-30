@@ -34,7 +34,7 @@ lazy val commonSettings = nocomma {
       <connection>scm:git:git@github.com:scalaprops/scalaprops-magnolia.git</connection>
       <tag>{tagOrHash.value}</tag>
     </scm>
-  publishTo := sonatypePublishTo.value
+  publishTo := sonatypePublishToBundle.value
   releaseTagName := tagName.value
   releaseCrossBuild := true
   releaseProcess := Seq[ReleaseStep](
@@ -53,9 +53,9 @@ lazy val commonSettings = nocomma {
       },
       enableCrossBuild = true
     ),
+    releaseStepCommand("sonatypeBundleRelease"),
     setNextVersion,
     commitNextVersion,
-    releaseStepCommand("sonatypeReleaseAll"),
     UpdateReadme.updateReadmeProcess,
     pushChanges
   )
