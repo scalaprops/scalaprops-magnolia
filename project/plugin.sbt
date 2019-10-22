@@ -1,4 +1,4 @@
-addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.0.7")
+addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.2.0")
 addSbtPlugin("com.github.scalaprops" % "sbt-scalaprops" % "0.3.2")
 addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "3.8")
 addSbtPlugin("com.github.gseitz" % "sbt-release" % "1.0.12")
