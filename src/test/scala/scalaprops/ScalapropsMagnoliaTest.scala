@@ -13,7 +13,6 @@ case class D(x: Boolean) extends Y
 case class E(value: Int) extends A
 
 object ScalapropsMagnoliaTest extends Scalaprops {
-
   private[this] val testValues = List(
     B(X1, true),
     B(X2, true),
