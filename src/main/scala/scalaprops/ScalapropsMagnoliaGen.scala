@@ -18,9 +18,7 @@ object ScalapropsMagnoliaGen {
     }
 
   def dispatch[T](ctx: SealedTrait[Gen, T]): Gen[T] = {
-    val gs: Seq[Gen[T]] = ctx.subtypes.map { x =>
-      x.typeclass.asInstanceOf[Gen[T]]
-    }
+    val gs: Seq[Gen[T]] = ctx.subtypes.map { x => x.typeclass.asInstanceOf[Gen[T]] }
     Gen.choose(0, gs.size - 1).flatMap(gs)
   }
 

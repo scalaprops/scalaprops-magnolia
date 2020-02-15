@@ -45,8 +45,6 @@ object ScalapropsMagnoliaTest extends Scalaprops {
 
     assert(values.filter(_.isInstanceOf[E]).distinct.take(100).size == 100)
 
-    testValues.forall { x =>
-      values.contains(x)
-    }
+    testValues.forall { x => values.contains(x) }
   }
 }
