@@ -1,6 +1,6 @@
 # scalaprops-magnolia
 
-[![Build Status](https://travis-ci.org/scalaprops/scalaprops-magnolia.svg?branch=master)](https://travis-ci.org/scalaprops/scalaprops-magnolia)
+[![Build Status](https://travis-ci.com/scalaprops/scalaprops-magnolia.svg?branch=master)](https://travis-ci.com/github/scalaprops/scalaprops-magnolia)
 [![scaladoc](https://javadoc-badge.appspot.com/com.github.scalaprops/scalaprops-magnolia_2.12.svg?label=scaladoc)](https://javadoc-badge.appspot.com/com.github.scalaprops/scalaprops-magnolia_2.12/scalaprops/index.html?javadocio=true)
 
 ### build.sbt
