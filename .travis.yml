@@ -2,7 +2,7 @@ language: scala
 sudo: false
 scala:
 - 2.12.11
-- 2.13.1
+- 2.13.2
 script:
 - sbt scalafmtCheck scalafmtSbtCheck test:scalafmtCheck "++ ${TRAVIS_SCALA_VERSION}!" scalapropsMagnoliaJVM/test scalapropsMagnoliaJS/test
 jdk:
