@@ -8,9 +8,8 @@ object ScalapropsMagnoliaCogen {
   def combine[T](ctx: CaseClass[Typeclass, T]): Typeclass[T] =
     new Cogen[T] {
       def cogen[B](t: T, g: CogenState[B]) = {
-        ctx.parameters.zipWithIndex.foldLeft(g) {
-          case (state, (p, i)) =>
-            Cogen[Int].cogen(i, Cogen[String].cogen(p.label, p.typeclass.cogen(p.dereference(t), state)))
+        ctx.parameters.zipWithIndex.foldLeft(g) { case (state, (p, i)) =>
+          Cogen[Int].cogen(i, Cogen[String].cogen(p.label, p.typeclass.cogen(p.dereference(t), state)))
         }
       }
     }
