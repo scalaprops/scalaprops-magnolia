@@ -87,7 +87,6 @@ lazy val scalapropsMagnolia = crossProject(JVMPlatform, JSPlatform)
       "-unchecked",
       "-Xlint:infer-any",
       "-Xlint:missing-interpolator",
-      "-Xlint:nullary-override",
       "-Xlint:nullary-unit",
       "-Xlint:private-shadow",
       "-Xlint:stars-align",
