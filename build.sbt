@@ -7,7 +7,7 @@ ThisBuild / onChangedBuildSource := ReloadOnSourceChanges
 def gitHash(): String = sys.process.Process("git rev-parse HEAD").lineStream_!.head
 
 val tagName = Def.setting {
-  s"v${if (releaseUseGlobalVersion.value) (version in ThisBuild).value
+  s"v${if (releaseUseGlobalVersion.value) (ThisBuild / version).value
   else version.value}"
 }
 val tagOrHash = Def.setting {
@@ -51,7 +51,7 @@ lazy val commonSettings = nocomma {
     ReleaseStep(
       action = { state =>
         val extracted = Project extract state
-        extracted.runAggregated(PgpKeys.publishSigned in Global in extracted.get(thisProjectRef), state)
+        extracted.runAggregated(extracted.get(thisProjectRef) / (Global / PgpKeys.publishSigned), state)
       },
       enableCrossBuild = true
     ),
@@ -69,7 +69,7 @@ lazy val scalapropsMagnolia = crossProject(JVMPlatform, JSPlatform)
   .settings(
     scalapropsCoreSettings,
     commonSettings,
-    Seq(Compile, Test).flatMap(c => scalacOptions in (c, console) --= unusedWarnings)
+    Seq(Compile, Test).flatMap(c => c / console / scalacOptions --= unusedWarnings)
   )
   .settings(nocomma {
     name := UpdateReadme.scalapropsMagnoliaName
@@ -113,11 +113,11 @@ lazy val scalapropsMagnolia = crossProject(JVMPlatform, JSPlatform)
       "com.github.scalaprops" %%% "scalaprops-gen" % scalapropsVersion.value,
       "com.github.scalaprops" %%% "scalaprops" % scalapropsVersion.value % "test"
     )
-    scalacOptions in (Compile, doc) ++= {
+    (Compile / doc / scalacOptions) ++= {
       val tag = tagOrHash.value
       Seq(
         "-sourcepath",
-        (baseDirectory in LocalRootProject).value.getAbsolutePath,
+        (LocalRootProject / baseDirectory).value.getAbsolutePath,
         "-doc-source-url",
         s"https://github.com/scalaprops/scalaprops-magnolia/tree/${tag}€{FILE_PATH}.scala"
       )
@@ -125,7 +125,7 @@ lazy val scalapropsMagnolia = crossProject(JVMPlatform, JSPlatform)
   })
   .jsSettings(
     scalacOptions += {
-      val a = (baseDirectory in LocalRootProject).value.toURI.toString
+      val a = (LocalRootProject / baseDirectory).value.toURI.toString
       val g = "https://raw.githubusercontent.com/scalaprops/scalaprops-magnolia/" + tagOrHash.value
       s"-P:scalajs:mapSourceURI:$a->$g/"
     }
@@ -142,5 +142,5 @@ lazy val notPublish = nocomma {
 commonSettings
 notPublish
 name := "root"
-sources in Compile := Nil
-sources in Test := Nil
+Compile / sources := Nil
+Test / sources := Nil
