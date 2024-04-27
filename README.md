@@ -3,7 +3,7 @@
 ### build.sbt
 
 ```scala
-libraryDependencies += "com.github.scalaprops" %% "scalaprops-magnolia" % "0.7.0"
+libraryDependencies += "com.github.scalaprops" %% "scalaprops-magnolia" % "0.9.0"
 ```
 
 ### example
