@@ -13,8 +13,8 @@ val tagName = Def.setting {
 val tagOrHash = Def.setting {
   if (isSnapshot.value) gitHash() else tagName.value
 }
-val Scala212 = "2.12.13"
-val Scala213 = "2.13.5"
+val Scala212 = "2.12.19"
+val Scala213 = "2.13.13"
 val unusedWarnings = Seq("-Ywarn-unused")
 
 lazy val commonSettings = nocomma {
@@ -107,7 +107,7 @@ lazy val scalapropsMagnolia = crossProject(JVMPlatform, JSPlatform)
           Nil
       }
     }
-    scalapropsVersion := "0.8.2"
+    scalapropsVersion := "0.9.1"
     libraryDependencies ++= Seq(
       "com.propensive" %%% "magnolia" % "0.14.5",
       "com.github.scalaprops" %%% "scalaprops-gen" % scalapropsVersion.value,
