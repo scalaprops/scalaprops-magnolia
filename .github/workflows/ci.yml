@@ -14,4 +14,4 @@ jobs:
       with:
         java-version: 8
         distribution: temurin
-    - run: sbt -v scalafmtSbtCheck scalafmtCheckAll "+ scalapropsMagnoliaJVM/test" "+ scalapropsMagnoliaJS/test"
+    - run: sbt -v scalafmtSbtCheck scalafmtCheckAll "+ test"

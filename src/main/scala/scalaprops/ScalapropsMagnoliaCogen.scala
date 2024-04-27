@@ -1,11 +1,11 @@
 package scalaprops
 
-import magnolia.{CaseClass, Magnolia, SealedTrait}
+import magnolia1.{CaseClass, Magnolia, SealedTrait}
 
 object ScalapropsMagnoliaCogen {
   type Typeclass[T] = scalaprops.Cogen[T]
 
-  def combine[T](ctx: CaseClass[Typeclass, T]): Typeclass[T] =
+  def join[T](ctx: CaseClass[Typeclass, T]): Typeclass[T] =
     new Cogen[T] {
       def cogen[B](t: T, g: CogenState[B]) = {
         ctx.parameters.zipWithIndex.foldLeft(g) { case (state, (p, i)) =>
@@ -14,7 +14,7 @@ object ScalapropsMagnoliaCogen {
       }
     }
 
-  def dispatch[T](ctx: SealedTrait[Typeclass, T]): Typeclass[T] =
+  def split[T](ctx: SealedTrait[Typeclass, T]): Typeclass[T] =
     new Cogen[T] {
       def cogen[B](t: T, g: CogenState[B]) = {
         val index = ctx.subtypes.indexWhere(_.cast.isDefinedAt(t))

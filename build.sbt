@@ -1,6 +1,5 @@
 import sbtrelease._
 import ReleaseStateTransformations._
-import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
 
 ThisBuild / onChangedBuildSource := ReloadOnSourceChanges
 
@@ -63,8 +62,7 @@ lazy val commonSettings = nocomma {
   )
 }
 
-lazy val scalapropsMagnolia = crossProject(JVMPlatform, JSPlatform)
-  .crossType(CrossType.Pure)
+lazy val scalapropsMagnolia = project
   .in(file("."))
   .settings(
     scalapropsCoreSettings,
@@ -109,9 +107,10 @@ lazy val scalapropsMagnolia = crossProject(JVMPlatform, JSPlatform)
     }
     scalapropsVersion := "0.9.1"
     libraryDependencies ++= Seq(
-      "com.propensive" %%% "magnolia" % "0.14.5",
-      "com.github.scalaprops" %%% "scalaprops-gen" % scalapropsVersion.value,
-      "com.github.scalaprops" %%% "scalaprops" % scalapropsVersion.value % "test"
+      "org.scala-lang" % "scala-reflect" % scalaVersion.value % Provided,
+      "com.softwaremill.magnolia1_2" %% "magnolia" % "1.1.9",
+      "com.github.scalaprops" %% "scalaprops-gen" % scalapropsVersion.value,
+      "com.github.scalaprops" %% "scalaprops" % scalapropsVersion.value % "test"
     )
     (Compile / doc / scalacOptions) ++= {
       val tag = tagOrHash.value
@@ -123,24 +122,3 @@ lazy val scalapropsMagnolia = crossProject(JVMPlatform, JSPlatform)
       )
     }
   })
-  .jsSettings(
-    scalacOptions += {
-      val a = (LocalRootProject / baseDirectory).value.toURI.toString
-      val g = "https://raw.githubusercontent.com/scalaprops/scalaprops-magnolia/" + tagOrHash.value
-      s"-P:scalajs:mapSourceURI:$a->$g/"
-    }
-  )
-
-lazy val notPublish = nocomma {
-  publishArtifact := false
-  publish := {}
-  publishLocal := {}
-  PgpKeys.publishSigned := {}
-  PgpKeys.publishLocalSigned := {}
-}
-
-commonSettings
-notPublish
-name := "root"
-Compile / sources := Nil
-Test / sources := Nil
