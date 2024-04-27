@@ -29,7 +29,7 @@ object ScalapropsMagnoliaTest extends Scalaprops {
     D(false)
   )
 
-  val testCogen = Property.forAll { seed: Long =>
+  val testCogen = Property.forAll { (seed: Long) =>
     import ScalapropsMagnoliaCogen._
     val xs = Gen[Y => Int].samples(seed = seed, listSize = 10)
     xs.exists { f =>
@@ -39,7 +39,7 @@ object ScalapropsMagnoliaTest extends Scalaprops {
     }
   }
 
-  val testGen = Property.forAll { seed: Long =>
+  val testGen = Property.forAll { (seed: Long) =>
     import ScalapropsMagnoliaGen._
     val values = Gen[A].infiniteStream(seed = seed)
 
