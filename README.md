@@ -1,7 +1,5 @@
 # scalaprops-magnolia
 
-[![scaladoc](https://javadoc-badge.appspot.com/com.github.scalaprops/scalaprops-magnolia_2.12.svg?label=scaladoc)](https://javadoc-badge.appspot.com/com.github.scalaprops/scalaprops-magnolia_2.12/scalaprops/index.html?javadocio=true)
-
 ### build.sbt
 
 for jvm
