@@ -2,16 +2,8 @@
 
 ### build.sbt
 
-for jvm
-
 ```scala
 libraryDependencies += "com.github.scalaprops" %% "scalaprops-magnolia" % "0.7.0"
-```
-
-for scala-js
-
-```scala
-libraryDependencies += "com.github.scalaprops" %%% "scalaprops-magnolia" % "0.7.0"
 ```
 
 ### example
