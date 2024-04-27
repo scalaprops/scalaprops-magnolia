@@ -73,6 +73,14 @@ lazy val scalapropsMagnolia = project
     name := UpdateReadme.scalapropsMagnoliaName
     description := "Generation of arbitrary case classes / ADTs instances with Scalaprops and Magnolia"
     scalacOptions ++= unusedWarnings
+    scalacOptions += {
+      scalaBinaryVersion.value match {
+        case "2.13" =>
+          "-Xsource:3-cross"
+        case "2.12" =>
+          "-Xsource:3"
+      }
+    }
     scalacOptions ++= Seq(
       "-deprecation",
       "-encoding",
