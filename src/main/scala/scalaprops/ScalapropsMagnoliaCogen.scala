@@ -1,6 +1,7 @@
 package scalaprops
 
 import magnolia1.{CaseClass, Magnolia, SealedTrait}
+import scala.annotation.tailrec
 
 object ScalapropsMagnoliaCogen {
   type Typeclass[T] = scalaprops.Cogen[T]
@@ -19,6 +20,7 @@ object ScalapropsMagnoliaCogen {
       def cogen[B](t: T, g: CogenState[B]) = {
         val index = ctx.subtypes.indexWhere(_.cast.isDefinedAt(t))
         if (index >= 0) {
+          @tailrec
           def loop(i: Int, r: Rand): Rand = {
             if (i <= 0) r
             else loop(i - 1, g.gen.f(index, r)._1)
