@@ -13,7 +13,7 @@ val tagOrHash = Def.setting {
   if (isSnapshot.value) gitHash() else tagName.value
 }
 val Scala212 = "2.12.21"
-val Scala213 = "2.13.18"
+val Scala213 = "3.8.1"
 val unusedWarnings = Seq("-Ywarn-unused")
 
 lazy val commonSettings = nocomma {
