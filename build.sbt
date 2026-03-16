@@ -116,7 +116,7 @@ lazy val scalapropsMagnolia = project
     scalapropsVersion := "0.10.0"
     libraryDependencies ++= Seq(
       "org.scala-lang" % "scala-reflect" % scalaVersion.value % Provided,
-      "com.softwaremill.magnolia1_2" %% "magnolia" % "1.1.12",
+      "com.softwaremill.magnolia1_2" %% "magnolia" % "1.1.13",
       "com.github.scalaprops" %% "scalaprops-gen" % scalapropsVersion.value,
       "com.github.scalaprops" %% "scalaprops" % scalapropsVersion.value % "test"
     )
