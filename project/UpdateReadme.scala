@@ -6,18 +6,17 @@ import scala.sys.process.Process
 object UpdateReadme {
   val scalapropsMagnoliaName = "scalaprops-magnolia"
 
-  val updateReadmeTask = { state: State =>
+  val updateReadmeTask: State => State = { state =>
     val extracted = Project.extract(state)
     val scalaV = "2.12"
-    val v = extracted get version
-    val org = extracted get organization
+    val v = extracted.get(version)
+    val org = extracted.get(organization)
     val modules = Seq(scalapropsMagnoliaName)
-    val snapshotOrRelease = if (extracted get isSnapshot) "snapshots" else "releases"
+    val snapshotOrRelease = if (extracted.get(isSnapshot)) "snapshots" else "releases"
     val readme = "README.md"
     val readmeFile = file(readme)
-    val newReadme = Predef
-      .augmentString(IO.read(readmeFile))
-      .lines
+    val newReadme = IO
+      .readLines(readmeFile)
       .map { line =>
         val matchReleaseOrSnapshot = line.contains("SNAPSHOT") == v.contains("SNAPSHOT")
         if (line.startsWith("libraryDependencies") && matchReleaseOrSnapshot) {
@@ -31,7 +30,7 @@ object UpdateReadme {
       }
       .mkString("", "\n", "\n")
     IO.write(readmeFile, newReadme)
-    val git = new Git(extracted get baseDirectory)
+    val git = new Git(extracted.get(baseDirectory))
     git.add(readme) ! state.log
     git.commit(message = "update " + readme, sign = false, signOff = false) ! state.log
     Process("git diff HEAD^") ! state.log
