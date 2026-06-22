@@ -1,9 +1,7 @@
 import sbtrelease._
 import ReleaseStateTransformations._
 
-ThisBuild / onChangedBuildSource := ReloadOnSourceChanges
-
-def gitHash(): String = sys.process.Process("git rev-parse HEAD").lineStream_!.head
+def gitHash(): String = sys.process.Process("git rev-parse HEAD").lazyLines_!.head
 
 val tagName = Def.setting {
   s"v${if (releaseUseGlobalVersion.value) (ThisBuild / version).value
@@ -82,6 +80,7 @@ lazy val scalapropsMagnolia = project
       }
     }
     scalacOptions ++= Seq(
+      "-release:8",
       "-deprecation",
       "-encoding",
       "UTF-8",
